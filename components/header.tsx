@@ -233,7 +233,7 @@ export function Header() {
           {/* Mobile Bottom CTAs */}
           <div className="grid grid-cols-2 gap-3 mt-6">
             <a
-              href="tel:+998554058888"
+              href="tel:+998873378888"
               className="py-4 rounded-full border border-white/15 text-[#f5f0e8] text-center text-sm font-semibold tracking-wider uppercase"
             >
               Call
