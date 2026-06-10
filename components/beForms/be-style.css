@@ -1,10 +1,12 @@
 body {
     padding-bottom: 154px;
 }
+
 #block-search,
 #block-search * {
     box-sizing: border-box;
 }
+
 .sf-wrapper {
     position: fixed;
     left: 0;
@@ -15,6 +17,7 @@ body {
     background: transparent;
     pointer-events: none;
 }
+
 #block-search {
     position: relative;
     width: min(calc(100% - 30px), 1180px);
@@ -28,21 +31,25 @@ body {
     overflow: visible;
     pointer-events: auto;
 }
+
 .be-container,
 #be-search-form {
     width: 100%;
     min-height: 96px;
 }
+
 .be-container {
     max-width: 1260px;
     margin: 0 auto;
     padding: 14px 16px;
     overflow: visible;
 }
+
 #be-search-form > a {
     color: rgba(245, 240, 232, 0.65);
     font-size: 12px;
 }
+
 .be-mobile-trigger,
 .be-mobile-close {
     display: none;
@@ -52,20 +59,25 @@ body {
     body {
         padding-bottom: 174px;
     }
+
     header nav {
         column-gap: 12px;
     }
+
     header nav a {
         font-size: 11px;
     }
+
     .booking-link {
         font-size: 12px;
         padding: 10px 14px;
     }
+
     #block-search {
         width: min(calc(100% - 120px), 960px);
         min-height: 132px;
     }
+
     .be-container,
     #be-search-form {
         min-height: 112px;
@@ -73,13 +85,11 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-    /* Mobilda body padding yo'q */
     body,
     body.be-mobile-open {
         padding-bottom: 0 !important;
     }
 
-    /* Widget va trigger desktop da yashirin */
     .sf-wrapper {
         display: none !important;
         position: fixed;
@@ -92,10 +102,9 @@ body {
         backdrop-filter: blur(12px);
         border-top: 1px solid rgba(212, 175, 55, 0.2);
         transform: translateY(100%);
-        transition: transform 240ms ease;
+        transition: transform 200ms ease;
     }
 
-    /* Faqat tugma bosilganda ochiladigan holat */
     .sf-wrapper.is-mobile-open {
         display: block !important;
         transform: translateY(0);
@@ -115,9 +124,41 @@ body {
         min-height: 128px;
     }
 
-    /* Yashirin tugma — ko'rsatmaymiz */
     .be-mobile-trigger {
-        display: none !important;
+        position: fixed;
+        right: 18px;
+        bottom: calc(22px + env(safe-area-inset-bottom));
+        z-index: 1000;
+        display: inline-flex !important;
+        width: 64px;
+        height: 64px;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 999px;
+        background: #4058c9;
+        color: #ffffff;
+        box-shadow: 0 12px 28px rgba(36, 55, 168, 0.32);
+        opacity: 1;
+        transform: translateZ(0);
+        transition: opacity 120ms ease, transform 120ms ease;
+        will-change: transform;
+    }
+
+    .be-mobile-trigger:active {
+        transform: scale(0.96);
+    }
+
+    .be-mobile-trigger svg {
+        width: 30px;
+        height: 30px;
+        stroke-width: 2.4;
+    }
+
+    .be-mobile-trigger.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.96);
     }
 
     .be-mobile-close {
