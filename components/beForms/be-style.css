@@ -1,12 +1,10 @@
 body {
     padding-bottom: 154px;
 }
-
 #block-search,
 #block-search * {
     box-sizing: border-box;
 }
-
 .sf-wrapper {
     position: fixed;
     left: 0;
@@ -17,7 +15,6 @@ body {
     background: transparent;
     pointer-events: none;
 }
-
 #block-search {
     position: relative;
     width: min(calc(100% - 30px), 1180px);
@@ -31,25 +28,21 @@ body {
     overflow: visible;
     pointer-events: auto;
 }
-
 .be-container,
 #be-search-form {
     width: 100%;
     min-height: 96px;
 }
-
 .be-container {
     max-width: 1260px;
     margin: 0 auto;
     padding: 14px 16px;
     overflow: visible;
 }
-
 #be-search-form > a {
     color: rgba(245, 240, 232, 0.65);
     font-size: 12px;
 }
-
 .be-mobile-trigger,
 .be-mobile-close {
     display: none;
@@ -59,25 +52,20 @@ body {
     body {
         padding-bottom: 174px;
     }
-
     header nav {
         column-gap: 12px;
     }
-
     header nav a {
         font-size: 11px;
     }
-
     .booking-link {
         font-size: 12px;
         padding: 10px 14px;
     }
-
     #block-search {
         width: min(calc(100% - 120px), 960px);
         min-height: 132px;
     }
-
     .be-container,
     #be-search-form {
         min-height: 112px;
@@ -85,25 +73,31 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    /* Mobilda body padding yo'q */
     body,
     body.be-mobile-open {
-        padding-bottom: 0;
+        padding-bottom: 0 !important;
     }
 
+    /* Widget va trigger desktop da yashirin */
     .sf-wrapper {
-        display: none;
-        bottom: 10px;
-        padding: 0 10px;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(calc(100% + 24px));
-        transition: opacity 240ms ease, transform 240ms ease, visibility 240ms ease;
+        display: none !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        padding: 10px;
+        background: rgba(16, 38, 29, 0.97);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid rgba(212, 175, 55, 0.2);
+        transform: translateY(100%);
+        transition: transform 240ms ease;
     }
 
+    /* Faqat tugma bosilganda ochiladigan holat */
     .sf-wrapper.is-mobile-open {
-        display: block;
-        opacity: 1;
-        visibility: visible;
+        display: block !important;
         transform: translateY(0);
     }
 
@@ -111,6 +105,9 @@ body {
         width: 100%;
         min-height: 148px;
         padding-top: 8px;
+        border: none;
+        background: transparent;
+        box-shadow: none;
     }
 
     .be-container,
@@ -118,34 +115,9 @@ body {
         min-height: 128px;
     }
 
+    /* Yashirin tugma — ko'rsatmaymiz */
     .be-mobile-trigger {
-        position: fixed;
-        right: 18px;
-        bottom: calc(22px + env(safe-area-inset-bottom));
-        z-index: 46;
-        display: inline-flex;
-        width: 64px;
-        height: 64px;
-        align-items: center;
-        justify-content: center;
-        border: 0;
-        border-radius: 999px;
-        background: linear-gradient(135deg, #4058c9, #2437a8);
-        color: #ffffff;
-        box-shadow: 0 16px 34px rgba(36, 55, 168, 0.32);
-        transition: opacity 180ms ease, transform 180ms ease;
-    }
-
-    .be-mobile-trigger svg {
-        width: 30px;
-        height: 30px;
-        stroke-width: 2.4;
-    }
-
-    .be-mobile-trigger.is-hidden {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(10px) scale(0.96);
+        display: none !important;
     }
 
     .be-mobile-close {
