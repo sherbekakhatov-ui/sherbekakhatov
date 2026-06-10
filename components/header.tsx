@@ -44,6 +44,7 @@ export function Header() {
     { href: '#contact', label: t.nav.contact },
   ];
 
+  const mobileNavLinks = navLinks.filter((link) => !link.forceReload);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
@@ -168,17 +169,11 @@ export function Header() {
       >
         <div className="h-full pt-24 pb-8 px-6 flex flex-col">
           <nav className="flex-1 flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {mobileNavLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={(e) => {
-                  closeMobileMenu();
-                  if (link.forceReload) {
-                    e.preventDefault();
-                    window.location.href = link.href;
-                  }
-                }}
+                onClick={closeMobileMenu}
                 className="py-4 border-b border-white/10 text-xl text-[#f5f0e8] tracking-wide font-medium hover:text-[#d4af37] transition-colors"
               >
                 {link.label}
@@ -208,26 +203,12 @@ export function Header() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 mt-6">
-            <a
-              href={phoneHref}
-              className="py-4 rounded-lg border border-white/15 text-[#f5f0e8] text-center text-sm font-semibold tracking-wider uppercase"
-            >
-              Call
-            </a>
-
-            <Link
-              href="?be-booking-open=true"
-              onClick={(e) => {
-                e.preventDefault();
-                closeMobileMenu();
-                window.location.href = '?be-booking-open=true';
-              }}
-              className="py-4 rounded-lg bg-[#d4af37] text-[#1a3328] text-center text-sm font-semibold tracking-wider uppercase"
-            >
-              {t.nav.bookNow}
-            </Link>
-          </div>
+          <a
+            href={phoneHref}
+            className="mt-6 py-4 rounded-lg border border-white/15 text-[#f5f0e8] text-center text-sm font-semibold tracking-wider uppercase"
+          >
+            Call
+          </a>
         </div>
       </div>
     </>
