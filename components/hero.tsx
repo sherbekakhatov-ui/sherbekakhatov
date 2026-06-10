@@ -2,12 +2,13 @@
 
 import { useLanguage } from '@/lib/language-context';
 import { ChevronDown, MapPin, Mountain, Phone, TreeDeciduous } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const highlights = [
   { value: '500', label: 'hectares', icon: TreeDeciduous },
   { value: '15', label: 'min from Shahrisabz', icon: MapPin },
-  { value: '4', label: 'room types', icon: Mountain },
+  { value: '3', label: 'room types', icon: Mountain },
 ];
 
 export function Hero() {
@@ -19,11 +20,14 @@ export function Hero() {
       className="relative min-h-[92svh] overflow-hidden pt-20 bg-[#1a3328]"
     >
       <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.03]"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop')`,
-          }}
+        <Image
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop"
+          alt="Miraki Gardens – Shahrisabz tog' manzarasi"
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
+          className="object-cover object-center scale-[1.03]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#10261d]/95 via-[#1a3328]/70 to-[#1a3328]/25" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1a3328] via-transparent to-[#10261d]/55" />
