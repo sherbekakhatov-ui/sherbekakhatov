@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLanguage } from '@/lib/language-context';
 import { useInView } from '@/hooks/use-in-view';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import { X } from 'lucide-react';
 
 const galleryImages = [
@@ -64,7 +65,7 @@ export function Gallery() {
   return (
     <section id="gallery" className="py-24 md:py-32 bg-[#1a3328] relative overflow-hidden">
       <div ref={ref} className="container mx-auto px-6 relative">
-        {/* Section Header */}
+
         <div className="text-center mb-12">
           <span className={cn(
             'inline-block text-[#d4af37] text-xs tracking-[0.3em] uppercase font-[family-name:var(--font-montserrat)] font-medium mb-4 transition-all duration-700',
@@ -88,7 +89,6 @@ export function Gallery() {
           </div>
         </div>
 
-        {/* Category Filters */}
         <div className={cn(
           'flex flex-wrap justify-center gap-3 mb-12 transition-all duration-700 delay-300',
           isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
@@ -109,7 +109,6 @@ export function Gallery() {
           ))}
         </div>
 
-        {/* Gallery Grid - Masonry Style */}
         <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
           {filteredImages.map((image, index) => (
             <div
@@ -124,14 +123,16 @@ export function Gallery() {
               style={{ transitionDelay: `${400 + index * 100}ms` }}
               onClick={() => setSelectedImage(image.src)}
             >
-              <img
+              <Image
                 src={image.src}
-                alt={`Gallery image - ${image.category}`}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                alt={`Miraki Gardens – ${t.gallery.categories[image.category as typeof categories[number]]}`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                loading={index < 3 ? 'eager' : 'lazy'}
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-[#1a3328]/0 group-hover:bg-[#1a3328]/40 transition-all duration-300" />
-              
-              {/* Hover Overlay */}
+
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="w-12 h-12 rounded-full border-2 border-[#f5f0e8] flex items-center justify-center">
                   <div className="w-6 h-px bg-[#f5f0e8]" />
@@ -139,7 +140,6 @@ export function Gallery() {
                 </div>
               </div>
 
-              {/* Border Accent */}
               <div className="absolute inset-3 border border-[#d4af37]/0 group-hover:border-[#d4af37]/30 transition-all duration-500 rounded-sm" />
             </div>
           ))}
@@ -158,12 +158,19 @@ export function Gallery() {
           >
             <X className="w-8 h-8" />
           </button>
-          <img
-            src={selectedImage}
-            alt="Gallery preview"
-            className="max-w-full max-h-[90vh] object-contain rounded-sm"
+          <div
+            className="relative max-w-5xl w-full max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
-          />
+          >
+            <Image
+              src={selectedImage}
+              alt="Miraki Gardens galereya"
+              width={1400}
+              height={900}
+              className="object-contain rounded-sm max-h-[90vh] w-auto mx-auto"
+              priority
+            />
+          </div>
         </div>
       )}
     </section>
