@@ -22,7 +22,7 @@ export function Hero() {
       <div className="absolute inset-0">
         <Image
           src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop"
-          alt="Miraki Gardens – Shahrisabz tog' manzarasi"
+          alt="Miraki Gardens - Shahrisabz tog' manzarasi"
           fill
           priority
           fetchPriority="high"
@@ -61,7 +61,7 @@ export function Hero() {
                 e.preventDefault();
                 window.location.href = '?be-booking-open=true';
               }}
-              className="inline-flex justify-center rounded-lg bg-[#d4af37] px-8 py-4 text-[#1a3328] text-sm tracking-[0.16em] uppercase font-[family-name:var(--font-montserrat)] font-semibold hover:bg-[#c9a430] transition-all duration-300 hover:shadow-lg hover:shadow-[#d4af37]/20"
+              className="hidden sm:inline-flex justify-center rounded-lg bg-[#d4af37] px-8 py-4 text-[#1a3328] text-sm tracking-[0.16em] uppercase font-[family-name:var(--font-montserrat)] font-semibold hover:bg-[#c9a430] transition-all duration-300 hover:shadow-lg hover:shadow-[#d4af37]/20"
             >
               {t.nav.bookNow}
             </Link>
