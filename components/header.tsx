@@ -13,8 +13,33 @@ const languages: { code: Language; label: string }[] = [
   { code: 'uz', label: 'UZ' },
 ];
 
+const uiLabels = {
+  en: {
+    changeLanguage: 'Change language',
+    call: 'Call',
+    callHotel: 'Call Miraki Gardens',
+    openMenu: 'Open menu',
+    language: 'Language',
+  },
+  ru: {
+    changeLanguage: 'Сменить язык',
+    call: 'Позвонить',
+    callHotel: 'Позвонить в Miraki Gardens',
+    openMenu: 'Открыть меню',
+    language: 'Язык',
+  },
+  uz: {
+    changeLanguage: "Tilni o'zgartirish",
+    call: "Qo'ng'iroq qilish",
+    callHotel: "Miraki Gardensga qo'ng'iroq qilish",
+    openMenu: 'Menyuni ochish',
+    language: 'Til',
+  },
+};
+
 export function Header() {
   const { language, setLanguage, t } = useLanguage();
+  const labels = uiLabels[language];
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -92,7 +117,7 @@ export function Header() {
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm tracking-wider uppercase font-[family-name:var(--font-montserrat)] font-medium text-[#f5f0e8]/90 hover:text-[#d4af37] transition-colors"
-                aria-label="Change language"
+                aria-label={labels.changeLanguage}
               >
                 {languages.find((l) => l.code === language)?.label}
                 <ChevronDown
@@ -142,7 +167,7 @@ export function Header() {
             <a
               href={phoneHref}
               className="w-10 h-10 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-[#f5f0e8] active:scale-95 transition"
-              aria-label="Call Miraki Gardens"
+              aria-label={labels.callHotel}
             >
               <Phone className="w-5 h-5" />
             </a>
@@ -150,7 +175,7 @@ export function Header() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="w-10 h-10 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-[#f5f0e8] active:scale-95 transition"
-              aria-label="Open menu"
+              aria-label={labels.openMenu}
               aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -183,7 +208,7 @@ export function Header() {
 
           <div className="mt-6">
             <p className="mb-3 text-xs uppercase tracking-[0.25em] text-[#f5f0e8]/50">
-              Language
+              {labels.language}
             </p>
             <div className="grid grid-cols-3 gap-3">
               {languages.map((lang) => (
@@ -207,7 +232,7 @@ export function Header() {
             href={phoneHref}
             className="mt-6 py-4 rounded-lg border border-white/15 text-[#f5f0e8] text-center text-sm font-semibold tracking-wider uppercase"
           >
-            Call
+            {labels.call}
           </a>
         </div>
       </div>
