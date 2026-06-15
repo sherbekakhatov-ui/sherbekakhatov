@@ -6,13 +6,44 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const highlights = [
-  { value: '500', label: 'hectares', icon: TreeDeciduous },
-  { value: '15', label: 'min from Shahrisabz', icon: MapPin },
-  { value: '3', label: 'room types', icon: Mountain },
+  { value: '500', key: 'hectares' as const, icon: TreeDeciduous },
+  { value: '15', key: 'distance' as const, icon: MapPin },
+  { value: '3', key: 'rooms' as const, icon: Mountain },
 ];
 
+const heroLabels = {
+  en: {
+    badge: 'Shahrisabz mountain retreat',
+    imageAlt: "Miraki Gardens - Shahrisabz mountain view",
+    highlights: {
+      hectares: 'hectares',
+      distance: 'min from Shahrisabz',
+      rooms: 'room types',
+    },
+  },
+  ru: {
+    badge: 'Горный курорт в Шахрисабзе',
+    imageAlt: 'Miraki Gardens - вид на горы Шахрисабза',
+    highlights: {
+      hectares: 'гектаров',
+      distance: 'мин от Шахрисабза',
+      rooms: 'типа номеров',
+    },
+  },
+  uz: {
+    badge: "Shahrisabz tog' dam olish maskani",
+    imageAlt: "Miraki Gardens - Shahrisabz tog' manzarasi",
+    highlights: {
+      hectares: 'gektar',
+      distance: 'daq. Shahrisabzdan',
+      rooms: 'xona turi',
+    },
+  },
+};
+
 export function Hero() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const labels = heroLabels[language];
 
   return (
     <section
@@ -22,7 +53,7 @@ export function Hero() {
       <div className="absolute inset-0">
         <Image
           src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop"
-          alt="Miraki Gardens - Shahrisabz tog' manzarasi"
+          alt={labels.imageAlt}
           fill
           priority
           fetchPriority="high"
@@ -38,7 +69,7 @@ export function Hero() {
           <div className="inline-flex items-center gap-3 mb-6 rounded-full border border-[#d4af37]/30 bg-[#10261d]/45 px-4 py-2 backdrop-blur-md animate-fade-up">
             <MapPin className="h-4 w-4 text-[#d4af37]" />
             <span className="font-[family-name:var(--font-montserrat)] text-[11px] sm:text-xs uppercase tracking-[0.18em] text-[#f5f0e8]/80">
-              Shahrisabz mountain retreat
+              {labels.badge}
             </span>
           </div>
 
@@ -80,13 +111,13 @@ export function Hero() {
               const Icon = item.icon;
               return (
                 <div
-                  key={item.label}
+                  key={item.key}
                   className="rounded-lg border border-[#f5f0e8]/10 bg-[#10261d]/40 p-4 backdrop-blur-md"
                 >
                   <Icon className="mb-3 h-5 w-5 text-[#d4af37]" />
                   <div className="text-2xl font-medium text-[#f5f0e8]">{item.value}</div>
                   <div className="mt-1 font-[family-name:var(--font-montserrat)] text-[11px] uppercase tracking-[0.16em] text-[#f5f0e8]/55">
-                    {item.label}
+                    {labels.highlights[item.key]}
                   </div>
                 </div>
               );
