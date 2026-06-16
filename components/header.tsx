@@ -65,11 +65,9 @@ export function Header() {
     { href: '#restaurant', label: t.nav.restaurant },
     { href: '#garden', label: t.nav.garden },
     { href: '#gallery', label: t.nav.gallery },
-    { href: '?be-booking-open=true', label: t.nav.booking, forceReload: true },
     { href: '#contact', label: t.nav.contact },
   ];
 
-  const mobileNavLinks = navLinks.filter((link) => !link.forceReload);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
@@ -84,39 +82,45 @@ export function Header() {
       >
         <div
           className={cn(
-            'container mx-auto px-4 sm:px-6 flex items-center justify-between transition-all duration-300',
-            isScrolled || isMobileMenuOpen ? 'h-16' : 'h-20'
+            'mx-auto flex w-full max-w-[1500px] items-center justify-between px-5 sm:px-8 transition-all duration-300',
+            isScrolled || isMobileMenuOpen ? 'h-16' : 'h-24'
           )}
         >
-          <Link href="#home" onClick={closeMobileMenu} className="relative z-50">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-medium tracking-normal text-[#f5f0e8]">
-              Miraki Gardens
-            </h1>
+          <Link href="#home" onClick={closeMobileMenu} className="relative z-50 flex items-center gap-4">
+            <span className="relative hidden h-12 w-12 rotate-45 border-2 border-[#d4af37] sm:block">
+              <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[#d4af37]" />
+              <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[#d4af37]" />
+            </span>
+            <span className="leading-none">
+              <span className="block text-xl sm:text-2xl font-medium uppercase tracking-[0.08em] text-[#f5f0e8]">
+                Miraki
+              </span>
+              <span className="block text-lg sm:text-xl font-medium uppercase tracking-[0.1em] text-[#d4af37]">
+                Gardens
+              </span>
+            </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) => (
+          <nav className="hidden lg:flex items-center gap-8 xl:gap-10">
+            {navLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={(e) => {
-                  if (link.forceReload) {
-                    e.preventDefault();
-                    window.location.href = link.href;
-                  }
-                }}
-                className="text-xs tracking-[0.16em] uppercase font-[family-name:var(--font-montserrat)] font-medium text-[#f5f0e8]/82 hover:text-[#d4af37] transition-colors duration-300"
+                className={cn(
+                  'relative py-3 text-sm tracking-[0.08em] uppercase font-[family-name:var(--font-montserrat)] font-medium text-[#f5f0e8]/88 hover:text-[#d4af37] transition-colors duration-300',
+                  index === 0 && 'text-[#d4af37] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-[#d4af37]'
+                )}
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-5">
             <div className="relative">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm tracking-wider uppercase font-[family-name:var(--font-montserrat)] font-medium text-[#f5f0e8]/90 hover:text-[#d4af37] transition-colors"
+                className="flex min-w-20 items-center justify-center gap-2 rounded-lg border border-white/25 px-4 py-3 text-sm tracking-wider uppercase font-[family-name:var(--font-montserrat)] font-medium text-[#f5f0e8]/90 hover:text-[#d4af37] transition-colors"
                 aria-label={labels.changeLanguage}
               >
                 {languages.find((l) => l.code === language)?.label}
@@ -157,7 +161,7 @@ export function Header() {
                 e.preventDefault();
                 window.location.href = '?be-booking-open=true';
               }}
-              className="booking-link rounded-lg bg-[#d4af37] px-5 py-3 text-[#1a3328] text-xs tracking-[0.16em] uppercase font-[family-name:var(--font-montserrat)] font-semibold hover:bg-[#c9a430] transition-colors duration-300"
+              className="booking-link rounded-lg bg-[#d4af37] px-7 py-4 text-[#1a3328] text-sm tracking-[0.12em] uppercase font-[family-name:var(--font-montserrat)] font-semibold hover:bg-[#c9a430] transition-colors duration-300"
             >
               {t.nav.bookNow}
             </Link>
@@ -194,7 +198,7 @@ export function Header() {
       >
         <div className="h-full pt-24 pb-8 px-6 flex flex-col">
           <nav className="flex-1 flex flex-col gap-1">
-            {mobileNavLinks.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
