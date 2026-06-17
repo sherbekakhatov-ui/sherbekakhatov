@@ -7,6 +7,7 @@ import { Amenities } from '@/components/amenities';
 import { Gallery } from '@/components/gallery';
 import { Contact } from '@/components/contact';
 import { Footer } from '@/components/footer';
+import BeSearchForm from '@/components/beForms/beSearchForm';
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Gallery />
       <Contact />
       <Footer />
+      <BeSearchForm />
     </main>
   );
 }
