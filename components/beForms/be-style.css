@@ -1,4 +1,8 @@
 body {
+    padding-bottom: 0;
+}
+
+body.be-booking-open {
     padding-bottom: 148px;
 }
 
@@ -15,7 +19,17 @@ body {
     z-index: 90;
     padding: 0 24px;
     background: transparent;
+    opacity: 0;
+    visibility: hidden;
     pointer-events: none;
+    transform: translateY(calc(100% + 32px));
+    transition: opacity 180ms ease, transform 220ms ease, visibility 220ms ease;
+}
+
+.sf-wrapper.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 #block-search {
@@ -56,7 +70,7 @@ body {
 }
 
 @media screen and (max-width: 1280px) {
-    body {
+    body.be-booking-open {
         padding-bottom: 162px;
     }
 
@@ -86,7 +100,8 @@ body {
 
 @media screen and (max-width: 768px) {
     body,
-    body.be-mobile-open {
+    body.be-mobile-open,
+    body.be-booking-open {
         padding-bottom: 0 !important;
     }
 
@@ -105,8 +120,11 @@ body {
         transition: transform 200ms ease;
     }
 
+    .sf-wrapper.is-open,
     .sf-wrapper.is-mobile-open {
         display: block !important;
+        opacity: 1;
+        visibility: visible;
         transform: translateY(0);
     }
 
