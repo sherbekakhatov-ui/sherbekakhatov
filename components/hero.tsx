@@ -3,7 +3,6 @@
 import { useLanguage } from '@/lib/language-context';
 import { CalendarDays, ChevronDown, MapPin, Play, Star } from 'lucide-react';
 import Link from 'next/link';
-import BeSearchForm from './beForms/beSearchForm';
 
 const heroLabels = {
   en: {
@@ -117,8 +116,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-
-      <BeSearchForm />
 
       <div className="hidden md:flex absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex-col items-center gap-3 animate-fade-up animation-delay-600">
         <span className="sr-only">{t.hero.scroll}</span>
