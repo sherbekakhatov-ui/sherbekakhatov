@@ -20,7 +20,7 @@ const heroLabels = {
     locationText: 'Кашкадарьинская область',
   },
   uz: {
-    badge: "Shahrisabz mountain retreat",
+    badge: "Shahrisabz tog' dam olish maskani",
     video: "Videoni ko'rish",
     ratingText: '500+ mehmon fikri',
     locationTitle: 'Shahrisabz',
