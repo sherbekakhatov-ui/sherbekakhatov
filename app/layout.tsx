@@ -176,7 +176,7 @@ const jsonLd = {
       name: 'Miraki Gardens Restaurant',
       description: "Bog'dan dasturxonga — 120 o'rinli restoran, panoramik tog' manzaralari.",
       url: 'https://miraki-garden.uz/#restaurant',
-      telephone: '+998554058888',
+      telephone: '+998873378888',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Shahrisabz',
