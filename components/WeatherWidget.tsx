@@ -140,62 +140,58 @@ export function WeatherWidget() {
   const wind = data?.current?.wind_speed_10m
 
   return (
-    <section className="relative overflow-hidden bg-[#f5f0e8] px-5 py-14 sm:px-8 md:py-20">
-      <div className="mx-auto max-w-[1180px]">
-        <div className="relative overflow-hidden rounded-[2rem] border border-[#d4af37]/30 bg-[#10261d] p-6 text-[#f5f0e8] shadow-2xl shadow-[#10261d]/15 sm:p-8 md:p-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(212,175,55,0.18),transparent_34%),radial-gradient(circle_at_82%_68%,rgba(245,240,232,0.08),transparent_32%)]" />
-          <div className="relative grid gap-8 lg:grid-cols-[1.05fr_1fr] lg:items-center">
+    <section className="relative overflow-hidden bg-[#f5f0e8] px-5 py-8 sm:px-8 md:py-12">
+      <div className="mx-auto max-w-[980px]">
+        <div className="relative overflow-hidden rounded-[1.5rem] border border-[#d4af37]/25 bg-[#10261d] p-4 text-[#f5f0e8] shadow-xl shadow-[#10261d]/10 sm:p-5 md:p-6">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_25%,rgba(212,175,55,0.14),transparent_32%),radial-gradient(circle_at_84%_70%,rgba(245,240,232,0.06),transparent_30%)]" />
+          <div className="relative grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
             <div>
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#d4af37]/35 bg-[#d4af37]/10 px-4 py-2 font-[family-name:var(--font-montserrat)] text-[10px] font-semibold uppercase tracking-[0.24em] text-[#d4af37]">
-                <CloudSun className="h-4 w-4" />
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 px-3 py-1.5 font-[family-name:var(--font-montserrat)] text-[9px] font-semibold uppercase tracking-[0.2em] text-[#d4af37]">
+                <CloudSun className="h-3.5 w-3.5" />
                 {text.eyebrow}
               </div>
 
-              <h2 className="text-4xl font-medium leading-none md:text-5xl lg:text-6xl">
+              <h2 className="text-2xl font-medium leading-none sm:text-3xl md:text-4xl">
                 {text.title}
               </h2>
 
-              <div className="mt-5 flex items-center gap-2 text-[#f5f0e8]/70">
+              <div className="mt-3 flex items-center gap-2 text-[#f5f0e8]/68">
                 <MapPin className="h-4 w-4 text-[#d4af37]" />
-                <span className="font-[family-name:var(--font-montserrat)] text-sm">
+                <span className="font-[family-name:var(--font-montserrat)] text-xs sm:text-sm">
                   {text.location}
                 </span>
               </div>
-
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#f5f0e8]/72">
-                {text.cta}
-              </p>
             </div>
 
-            <div className="rounded-[1.5rem] border border-white/12 bg-white/[0.06] p-5 backdrop-blur-md sm:p-6">
+            <div className="rounded-[1.25rem] border border-white/12 bg-white/[0.06] p-4 backdrop-blur-md md:min-w-[380px]">
               {isLoading ? (
-                <div className="flex min-h-44 items-center justify-center gap-3 text-[#f5f0e8]/70">
+                <div className="flex min-h-24 items-center justify-center gap-3 text-[#f5f0e8]/70">
                   <Loader2 className="h-5 w-5 animate-spin text-[#d4af37]" />
-                  <span className="font-[family-name:var(--font-montserrat)] text-sm uppercase tracking-[0.18em]">
+                  <span className="font-[family-name:var(--font-montserrat)] text-xs uppercase tracking-[0.16em]">
                     {text.loading}
                   </span>
                 </div>
               ) : hasError ? (
-                <div className="flex min-h-44 items-center justify-center text-center font-[family-name:var(--font-montserrat)] text-sm uppercase tracking-[0.16em] text-[#f5f0e8]/65">
+                <div className="flex min-h-24 items-center justify-center text-center font-[family-name:var(--font-montserrat)] text-xs uppercase tracking-[0.14em] text-[#f5f0e8]/65">
                   {text.unavailable}
                 </div>
               ) : (
-                <div className="grid gap-4">
-                  <div className="flex items-end justify-between gap-5">
+                <div className="grid gap-3">
+                  <div className="flex items-end justify-between gap-4">
                     <div>
-                      <div className="font-[family-name:var(--font-montserrat)] text-[10px] uppercase tracking-[0.22em] text-[#d4af37]">
+                      <div className="font-[family-name:var(--font-montserrat)] text-[9px] uppercase tracking-[0.2em] text-[#d4af37]">
                         {text.condition}
                       </div>
-                      <div className="mt-2 text-xl text-[#f5f0e8]">
+                      <div className="mt-1.5 text-base text-[#f5f0e8] sm:text-lg">
                         {text.conditions[conditionKey]}
                       </div>
                     </div>
-                    <div className="text-right text-6xl font-medium leading-none text-[#d4af37] md:text-7xl">
+                    <div className="text-right text-5xl font-medium leading-none text-[#d4af37] md:text-6xl">
                       {Math.round(temperature ?? 0)}°
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 pt-3">
+                  <div className="grid grid-cols-2 gap-2">
                     <WeatherMetric
                       icon={Droplets}
                       label={text.humidity}
@@ -227,12 +223,12 @@ function WeatherMetric({
   value: string
 }) {
   return (
-    <div className={cn('rounded-2xl border border-white/10 bg-[#08120d]/35 p-4')}>
-      <Icon className="mb-3 h-5 w-5 text-[#d4af37]" />
-      <div className="font-[family-name:var(--font-montserrat)] text-[10px] uppercase tracking-[0.18em] text-[#f5f0e8]/48">
+    <div className={cn('rounded-xl border border-white/10 bg-[#08120d]/30 p-3')}>
+      <Icon className="mb-2 h-4 w-4 text-[#d4af37]" />
+      <div className="font-[family-name:var(--font-montserrat)] text-[9px] uppercase tracking-[0.14em] text-[#f5f0e8]/48">
         {label}
       </div>
-      <div className="mt-1 text-2xl font-medium text-[#f5f0e8]">{value}</div>
+      <div className="mt-1 text-xl font-medium text-[#f5f0e8]">{value}</div>
     </div>
   )
 }
