@@ -47,6 +47,7 @@ export default function LoadingScreen() {
               >
                 Miraki
               </motion.div>
+
               <motion.div
                 className="mt-2 text-[36px] font-medium uppercase text-[#d4af37] sm:text-5xl"
                 initial={{ opacity: 0, letterSpacing: '0.24em' }}

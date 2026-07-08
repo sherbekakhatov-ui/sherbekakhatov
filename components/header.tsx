@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Phone } from 'lucide-react';
@@ -46,6 +46,9 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, opacity: 0 });
+  const navRef = useRef<HTMLElement | null>(null);
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const phoneHref = `tel:${t.contact.phone.replace(/\s/g, '')}`;
 
   useEffect(() => {
@@ -103,6 +106,31 @@ export function Header() {
     };
   }, [pathname, navLinks]);
 
+  useEffect(() => {
+    const updateIndicator = () => {
+      const activeLink = linkRefs.current[activeSection];
+      const nav = navRef.current;
+
+      if (!activeLink || !nav) {
+        setIndicatorStyle((style) => ({ ...style, opacity: 0 }));
+        return;
+      }
+
+      const linkRect = activeLink.getBoundingClientRect();
+      const navRect = nav.getBoundingClientRect();
+
+      setIndicatorStyle({
+        left: linkRect.left - navRect.left,
+        width: linkRect.width,
+        opacity: 1,
+      });
+    };
+
+    updateIndicator();
+    window.addEventListener('resize', updateIndicator);
+    return () => window.removeEventListener('resize', updateIndicator);
+  }, [activeSection, navLinks]);
+
   const isActive = (section: string) => {
     return activeSection === section;
   };
@@ -145,14 +173,25 @@ export function Header() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8 xl:gap-10">
+          <nav ref={navRef} className="relative hidden lg:flex items-center gap-8 xl:gap-10">
+            <span
+              className="pointer-events-none absolute bottom-0 h-px rounded-full bg-[#d4af37] shadow-[0_0_18px_rgba(212,175,55,0.7)] transition-all duration-500 ease-out"
+              style={{
+                left: indicatorStyle.left,
+                width: indicatorStyle.width,
+                opacity: indicatorStyle.opacity,
+              }}
+            />
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
+                ref={(element) => {
+                  linkRefs.current[link.section] = element;
+                }}
                 className={cn(
-                  'relative py-3 text-sm tracking-[0.08em] uppercase font-[family-name:var(--font-montserrat)] font-medium text-[#f5f0e8]/88 hover:text-[#d4af37] transition-colors duration-300',
-                  isActive(link.section) && 'text-[#d4af37] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-[#d4af37]'
+                  'premium-soft-transition premium-focus-ring relative py-3 text-sm tracking-[0.08em] uppercase font-[family-name:var(--font-montserrat)] font-medium text-[#f5f0e8]/88 hover:text-[#d4af37]',
+                  isActive(link.section) && 'text-[#d4af37]'
                 )}
               >
                 {link.label}
@@ -164,7 +203,7 @@ export function Header() {
             <div className="relative">
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex min-w-20 items-center justify-center gap-2 rounded-lg border border-white/25 px-4 py-3 text-sm tracking-wider uppercase font-[family-name:var(--font-montserrat)] font-medium text-[#f5f0e8]/90 hover:text-[#d4af37] transition-colors"
+                className="premium-soft-transition premium-hover-lift premium-focus-ring flex min-w-20 items-center justify-center gap-2 rounded-lg border border-white/25 px-4 py-3 text-sm tracking-wider uppercase font-[family-name:var(--font-montserrat)] font-medium text-[#f5f0e8]/90 hover:border-[#d4af37]/45 hover:text-[#d4af37]"
                 aria-label={labels.changeLanguage}
               >
                 {languages.find((l) => l.code === language)?.label}
@@ -202,7 +241,7 @@ export function Header() {
             <button
               type="button"
               onClick={openBooking}
-              className="rounded-lg bg-[#d4af37] px-7 py-4 text-[#1a3328] text-sm tracking-[0.12em] uppercase font-[family-name:var(--font-montserrat)] font-semibold hover:bg-[#c9a430] transition-colors duration-300"
+              className="premium-soft-transition premium-hover-lift premium-gold-glow premium-focus-ring rounded-lg bg-[#d4af37] px-7 py-4 text-[#1a3328] text-sm tracking-[0.12em] uppercase font-[family-name:var(--font-montserrat)] font-semibold hover:bg-[#c9a430]"
             >
               {t.nav.bookNow}
             </button>
@@ -211,7 +250,7 @@ export function Header() {
           <div className="lg:hidden flex items-center gap-2 relative z-50">
             <a
               href={phoneHref}
-              className="w-10 h-10 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-[#f5f0e8] active:scale-95 transition"
+              className="premium-soft-transition premium-focus-ring w-10 h-10 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-[#f5f0e8] active:scale-95"
               aria-label={labels.callHotel}
             >
               <Phone className="w-5 h-5" />
@@ -219,7 +258,7 @@ export function Header() {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="w-10 h-10 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-[#f5f0e8] active:scale-95 transition"
+              className="premium-soft-transition premium-focus-ring w-10 h-10 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-[#f5f0e8] active:scale-95"
               aria-label={labels.openMenu}
               aria-expanded={isMobileMenuOpen}
             >
@@ -245,7 +284,7 @@ export function Header() {
                 href={link.href}
                 onClick={closeMobileMenu}
                 className={cn(
-                  'py-4 border-b border-white/10 text-xl text-[#f5f0e8] tracking-wide font-medium hover:text-[#d4af37] transition-colors',
+                  'premium-soft-transition premium-focus-ring py-4 border-b border-white/10 text-xl text-[#f5f0e8] tracking-wide font-medium hover:text-[#d4af37]',
                   isActive(link.section) && 'text-[#d4af37]'
                 )}
               >
@@ -264,7 +303,7 @@ export function Header() {
                   key={lang.code}
                   onClick={() => setLanguage(lang.code)}
                   className={cn(
-                    'py-3 rounded-lg text-sm tracking-wider uppercase font-[family-name:var(--font-montserrat)] transition-colors border',
+                    'premium-soft-transition premium-focus-ring py-3 rounded-lg text-sm tracking-wider uppercase font-[family-name:var(--font-montserrat)] border',
                     language === lang.code
                       ? 'bg-[#d4af37] border-[#d4af37] text-[#1a3328]'
                       : 'border-white/15 text-[#f5f0e8]/80'
@@ -279,14 +318,14 @@ export function Header() {
           <button
             type="button"
             onClick={openBooking}
-            className="mt-6 py-4 rounded-lg bg-[#d4af37] text-[#1a3328] text-center text-sm font-semibold tracking-wider uppercase"
+            className="premium-soft-transition premium-focus-ring mt-6 py-4 rounded-lg bg-[#d4af37] text-[#1a3328] text-center text-sm font-semibold tracking-wider uppercase"
           >
             {t.nav.bookNow}
           </button>
 
           <a
             href={phoneHref}
-            className="mt-3 py-4 rounded-lg border border-white/15 text-[#f5f0e8] text-center text-sm font-semibold tracking-wider uppercase"
+            className="premium-soft-transition premium-focus-ring mt-3 py-4 rounded-lg border border-white/15 text-[#f5f0e8] text-center text-sm font-semibold tracking-wider uppercase"
           >
             {labels.call}
           </a>

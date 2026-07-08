@@ -3,7 +3,11 @@ import { Cormorant_Garamond, Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/lib/language-context'
 import FloatingContact from '@/components/FloatingContact'
+import MobileBottomCTA from '@/components/MobileBottomCTA'
 import './globals.css'
+import './premium-effects.css'
+import LoadingScreen from '@/components/LoadingScreen'
+import CustomCursor from '@/components/CustomCursor'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin', 'cyrillic'],
@@ -201,8 +205,11 @@ export default function RootLayout({
         />
       </head>
       <body className={`${cormorant.variable} ${montserrat.variable} font-serif antialiased`}>
+        <LoadingScreen />
+        <CustomCursor />
         <LanguageProvider>
           {children}
+          <MobileBottomCTA />
         </LanguageProvider>
         <FloatingContact />
         <Analytics />
