@@ -8,11 +8,13 @@ import { Gallery } from '@/components/gallery';
 import { WeatherWidget } from '@/components/WeatherWidget';
 import { Contact } from '@/components/contact';
 import { Footer } from '@/components/footer';
+import { PremiumScrollEffects } from '@/components/PremiumScrollEffects';
 import BeSearchForm from '@/components/beForms/beSearchForm';
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <PremiumScrollEffects />
       <Header />
       <Hero />
       <Rooms />
